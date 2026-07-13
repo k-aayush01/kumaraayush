@@ -737,36 +737,8 @@ function About() {
           title={<>Marketing that earns <span className="gradient-text">trust and results.</span></>}
           sub="A senior digital marketing leader with a bias for systems, storytelling, and measurable outcomes across brand, growth, product and AI."
         />
-        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10">
+        <div className="mx-auto max-w-5xl">
           {/* Portrait placeholder */}
-          <div className="relative">
-            <div className="relative aspect-[4/5] rounded-3xl glass-card overflow-hidden group">
-              <div className="absolute inset-0 gradient-bg opacity-90" />
-              <div className="absolute inset-0 grid place-items-center text-primary-foreground">
-                <div className="text-center">
-                  <div className="mx-auto grid h-24 w-24 place-items-center rounded-full bg-white/15 backdrop-blur mb-4">
-                    <span className="text-3xl font-display font-semibold">KA</span>
-                  </div>
-                  <div className="text-sm font-mono uppercase tracking-widest opacity-80">Portrait Placeholder</div>
-                  <div className="mt-1 text-xs opacity-70">Drop your professional photograph here (4:5)</div>
-                </div>
-              </div>
-              <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-black/40 to-transparent text-primary-foreground">
-                <div className="text-sm font-medium">Kumar Aayush</div>
-                <div className="text-xs opacity-90">Senior Digital Marketing Specialist</div>
-              </div>
-            </div>
-            <GlassCard className="absolute -bottom-6 -right-4 p-4 hidden md:block animate-float">
-              <div className="flex items-center gap-3">
-                <MapPin className="h-4 w-4 text-royal-purple" />
-                <div>
-                  <div className="text-sm font-medium">Pune, India</div>
-                  <div className="text-[11px] text-muted-foreground">Working globally · Remote-first</div>
-                </div>
-              </div>
-            </GlassCard>
-          </div>
-
           <div>
             <p className="text-lg text-muted-foreground leading-relaxed">
               I'm a dedicated, results-driven marketing leader who treats every brand as a
