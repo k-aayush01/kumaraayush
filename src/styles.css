@@ -222,5 +222,3 @@
   animation: shimmer 3s linear infinite;
 }
 .animate-pulse-ring { animation: pulse-ring 2.4s cubic-bezier(0.22,1,0.36,1) infinite; }
-  }
-}
