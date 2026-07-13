@@ -1343,79 +1343,245 @@ function AICenter() {
           title={<>Marketing at the speed of <span className="gradient-text">thought.</span></>}
           sub="Prompt systems, agents, and workflows that turn a small team into a compounding operation."
         />
-        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
-          {/* Neural nodes */}
-          <div className="relative aspect-square max-w-xl">
-            <svg viewBox="0 0 400 400" className="w-full h-full">
-              <defs>
-                <linearGradient id="nn" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="var(--deep-blue)" />
-                  <stop offset="100%" stopColor="var(--cyan-accent)" />
-                </linearGradient>
-              </defs>
-              {[[80,80],[320,80],[200,60],[80,320],[320,320],[200,340],[60,200],[340,200],[200,200]].map((p, i, arr) => (
-                arr.map((q, j) => (
-                  i < j && (
-                    <line key={`${i}-${j}`} x1={p[0]} y1={p[1]} x2={q[0]} y2={q[1]}
-                      stroke="url(#nn)" strokeOpacity="0.15" strokeWidth="0.8" />
-                  )
-                ))
-              ))}
-              {[[80,80],[320,80],[200,60],[80,320],[320,320],[200,340],[60,200],[340,200],[200,200]].map((p, i) => (
-                <g key={i}>
-                  <circle cx={p[0]} cy={p[1]} r="16" fill="url(#nn)" opacity="0.9" />
-                  <circle cx={p[0]} cy={p[1]} r="16" fill="none" stroke="url(#nn)" strokeOpacity="0.5">
-                    <animate attributeName="r" from="16" to="30" dur="2.2s" begin={`${i * 0.15}s`} repeatCount="indefinite" />
-                    <animate attributeName="opacity" from="0.5" to="0" dur="2.2s" begin={`${i * 0.15}s`} repeatCount="indefinite" />
-                  </circle>
-                </g>
-              ))}
-            </svg>
-          </div>
+        <AILiveDemo />
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            {AI_STACK.map((a, i) => (
-              <motion.div key={a.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}>
-                <GlassCard tilt className="p-5 hover:-translate-y-1 transition-transform">
-                  <div className="h-10 w-10 rounded-xl gradient-bg grid place-items-center text-primary-foreground shadow">
-                    <a.icon className="h-5 w-5" />
+        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {AI_STACK.map((a, i) => (
+            <motion.div key={a.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}>
+              <GlassCard tilt className="p-5 group relative overflow-hidden">
+                <div className="absolute -inset-x-8 -top-8 h-16 opacity-0 group-hover:opacity-100 transition-opacity animate-shimmer" />
+                <div className="h-10 w-10 rounded-xl gradient-bg grid place-items-center text-primary-foreground shadow relative">
+                  <a.icon className="h-5 w-5" />
+                  <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-emerald-signal animate-ping" />
+                </div>
+                <div className="mt-3 font-semibold">{a.name}</div>
+                <div className="mt-1 text-sm text-muted-foreground">{a.desc}</div>
+              </GlassCard>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+/* -------------- AI Live Demo -------------- */
+const AI_STEPS = [
+  { key: "research", label: "Research", tool: "Perplexity + Semrush", icon: Search,
+    logs: [
+      "› pulling SERP for 'zero-trust for SMB'",
+      "✓ 42 sources · 3 competitor gaps",
+      "✓ intent map · pain-points extracted",
+    ] },
+  { key: "brief", label: "Brief", tool: "Claude 3.5 Sonnet", icon: Brain,
+    logs: [
+      "› generating outline · 7 H2s",
+      "✓ ICP: CISO / IT-Head · 250-2000 emp",
+      "✓ brief approved · tone: expert-warm",
+    ] },
+  { key: "draft", label: "Draft", tool: "GPT-4o + brand voice", icon: Wand2,
+    logs: [
+      "› streaming draft · 1,842 tokens",
+      "✓ 1,420 words · reading grade 9.4",
+      "✓ 3 CTAs · 4 internal links inserted",
+    ] },
+  { key: "qa", label: "QA", tool: "Originality + Grammarly + human", icon: Check,
+    logs: [
+      "› fact-check · 12 claims verified",
+      "✓ plagiarism 0.4% · AI-detect 6%",
+      "✓ SEO score 96 · schema attached",
+    ] },
+  { key: "publish", label: "Publish", tool: "n8n → WP + LinkedIn + HubSpot", icon: Rocket,
+    logs: [
+      "› pushing to WordPress",
+      "✓ blog live · sitemap pinged",
+      "✓ 4 social variants scheduled",
+    ] },
+];
+
+function AILiveDemo() {
+  const [active, setActive] = useState(0);
+  const [logLine, setLogLine] = useState(0);
+  const [tick, setTick] = useState(0);
+
+  // Step advancer
+  useEffect(() => {
+    const t = setInterval(() => {
+      setLogLine((l) => {
+        if (l + 1 >= AI_STEPS[active].logs.length) {
+          setTimeout(() => {
+            setActive((a) => (a + 1) % AI_STEPS.length);
+            setLogLine(0);
+          }, 700);
+          return l;
+        }
+        return l + 1;
+      });
+    }, 1100);
+    return () => clearInterval(t);
+  }, [active]);
+
+  // Live counters
+  useEffect(() => {
+    const t = setInterval(() => setTick((x) => x + 1), 1600);
+    return () => clearInterval(t);
+  }, []);
+
+  const stats = useMemo(() => ({
+    tasks: 1284 + tick * 3,
+    hours: 412 + Math.floor(tick * 0.4),
+    tokens: (18.6 + tick * 0.02).toFixed(1),
+    assets: 962 + tick,
+  }), [tick]);
+
+  return (
+    <div className="glass-card rounded-3xl p-5 md:p-7 relative overflow-hidden">
+      {/* header */}
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div className="flex items-center gap-3">
+          <div className="flex gap-1.5">
+            <span className="h-3 w-3 rounded-full bg-destructive/70" />
+            <span className="h-3 w-3 rounded-full bg-orange-signal/70" />
+            <span className="h-3 w-3 rounded-full bg-emerald-signal/70" />
+          </div>
+          <div className="font-mono text-xs text-muted-foreground">agent.marketing / content-pipeline.yaml</div>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-signal opacity-75 animate-ping" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-signal" />
+          </span>
+          <span className="text-xs font-mono uppercase tracking-widest text-emerald-signal">Live · running</span>
+        </div>
+      </div>
+
+      <div className="grid lg:grid-cols-[1.15fr_1fr] gap-6">
+        {/* Workflow graph */}
+        <div className="relative rounded-2xl border border-border/70 bg-background/60 p-5 overflow-hidden">
+          <div className="absolute inset-0 grid-lines opacity-30 pointer-events-none" />
+          <div className="relative flex flex-col gap-3">
+            {AI_STEPS.map((s, i) => {
+              const state = i < active ? "done" : i === active ? "running" : "idle";
+              return (
+                <div key={s.key} className="relative">
+                  {i < AI_STEPS.length - 1 && (
+                    <div className="absolute left-[27px] top-14 h-6 w-0.5 bg-border overflow-hidden">
+                      <motion.div
+                        className="h-full w-full gradient-bg origin-top"
+                        animate={{ scaleY: state === "done" ? 1 : state === "running" ? [0, 1] : 0 }}
+                        transition={{ duration: 1.2, repeat: state === "running" ? Infinity : 0 }}
+                      />
+                    </div>
+                  )}
+                  <div className={`flex items-center gap-4 rounded-xl border p-3 transition-all ${
+                    state === "running" ? "border-cyan-accent/60 bg-cyan-accent/5 shadow-[0_0_0_1px_var(--cyan-accent)]" :
+                    state === "done" ? "border-emerald-signal/40 bg-emerald-signal/5" :
+                    "border-border/60"
+                  }`}>
+                    <div className={`relative h-14 w-14 rounded-xl grid place-items-center shrink-0 ${
+                      state === "idle" ? "bg-muted text-muted-foreground" : "gradient-bg text-primary-foreground"
+                    }`}>
+                      <s.icon className="h-6 w-6" />
+                      {state === "running" && (
+                        <>
+                          <span className="absolute inset-0 rounded-xl border-2 border-cyan-accent animate-pulse-ring" />
+                          <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-cyan-accent animate-ping" />
+                        </>
+                      )}
+                      {state === "done" && (
+                        <span className="absolute -right-1 -top-1 h-4 w-4 rounded-full bg-emerald-signal grid place-items-center">
+                          <Check className="h-2.5 w-2.5 text-white" />
+                        </span>
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <div className="font-semibold">{s.label}</div>
+                        <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">step 0{i+1}</div>
+                      </div>
+                      <div className="text-xs text-muted-foreground truncate">{s.tool}</div>
+                      <div className="mt-2 h-1 rounded-full bg-muted overflow-hidden">
+                        <motion.div
+                          className="h-full gradient-bg"
+                          animate={{ width: state === "done" ? "100%" : state === "running" ? ["0%", "100%"] : "0%" }}
+                          transition={{ duration: 3.3, repeat: state === "running" ? Infinity : 0, ease: "linear" }}
+                        />
+                      </div>
+                    </div>
+                    <div className={`text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded-full ${
+                      state === "running" ? "bg-cyan-accent/20 text-cyan-accent" :
+                      state === "done" ? "bg-emerald-signal/20 text-emerald-signal" :
+                      "bg-muted text-muted-foreground"
+                    }`}>
+                      {state}
+                    </div>
                   </div>
-                  <div className="mt-3 font-semibold">{a.name}</div>
-                  <div className="mt-1 text-sm text-muted-foreground">{a.desc}</div>
-                </GlassCard>
-              </motion.div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Workflow diagram */}
-        <div className="mt-14 glass-card rounded-3xl p-6 md:p-8">
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-            <div>
-              <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Automation Blueprint</div>
-              <div className="text-2xl font-semibold">From intent → published, in one flow.</div>
+        {/* Terminal + prompt */}
+        <div className="flex flex-col gap-4">
+          <div className="rounded-2xl border border-border/70 bg-[oklch(0.16_0.04_265)] text-[oklch(0.95_0.02_180)] p-4 font-mono text-xs h-[280px] overflow-hidden relative">
+            <div className="flex items-center justify-between mb-3 text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Terminal className="h-3.5 w-3.5" />
+                <span>agent.log</span>
+              </div>
+              <span className="text-emerald-signal">● connected</span>
             </div>
-            <Badge variant="outline" className="rounded-full">Live workflow</Badge>
+            <div className="space-y-1.5">
+              <AnimatePresence mode="popLayout">
+                {AI_STEPS[active].logs.slice(0, logLine + 1).map((line, i) => (
+                  <motion.div
+                    key={`${active}-${i}`}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className={line.startsWith("✓") ? "text-emerald-signal" : "text-cyan-accent/90"}
+                  >
+                    <span className="text-muted-foreground/60 mr-2">
+                      [{String(active + 1).padStart(2, "0")}:{String(i + 1).padStart(2, "0")}]
+                    </span>
+                    {line}
+                    {i === logLine && <span className="ml-1 inline-block w-1.5 h-3 bg-cyan-accent animate-pulse align-middle" />}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
           </div>
-          <div className="grid md:grid-cols-5 gap-3">
-            {["Research", "Brief", "Draft", "QA", "Publish"].map((step, i) => (
-              <div key={step} className="relative">
-                <div className="rounded-2xl border border-border/70 bg-background/70 p-4">
-                  <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Step 0{i + 1}</div>
-                  <div className="mt-1 font-semibold">{step}</div>
-                  <div className="mt-2 h-1.5 rounded-full bg-muted overflow-hidden">
-                    <motion.div initial={{ width: 0 }} whileInView={{ width: "100%" }} viewport={{ once: true }}
-                      transition={{ duration: 0.7, delay: i * 0.15 }} className="h-full gradient-bg" />
+
+          {/* Live stats */}
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { l: "Tasks automated", v: stats.tasks.toLocaleString(), s: "this quarter", icon: Zap },
+              { l: "Hours saved", v: `${stats.hours}h`, s: "compounding", icon: Gauge },
+              { l: "Tokens processed", v: `${stats.tokens}M`, s: "GPT + Claude", icon: Cpu },
+              { l: "Assets shipped", v: stats.assets.toLocaleString(), s: "blog · social · email", icon: Sparkles },
+            ].map((k) => (
+              <div key={k.l} className="rounded-2xl border border-border/70 bg-background/60 p-3 relative overflow-hidden">
+                <div className="flex items-center justify-between">
+                  <div className="h-7 w-7 rounded-lg gradient-bg grid place-items-center text-primary-foreground">
+                    <k.icon className="h-3.5 w-3.5" />
                   </div>
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-signal animate-pulse" />
                 </div>
-                {i < 4 && <div className="hidden md:block absolute right-[-14px] top-1/2 -translate-y-1/2 text-muted-foreground"><ArrowRight className="h-4 w-4" /></div>}
+                <motion.div
+                  key={k.v}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-2 text-xl font-semibold gradient-text"
+                >{k.v}</motion.div>
+                <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">{k.l}</div>
+                <div className="text-[10px] text-muted-foreground/70">{k.s}</div>
               </div>
             ))}
           </div>
         </div>
       </div>
-    </Section>
+    </div>
   );
 }
 
