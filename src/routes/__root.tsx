@@ -77,13 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Kumar Aayush — Digital Marketing Intelligence" },
-      { name: "description", content: "Portfolio of Kumar Aayush — Senior Digital Marketing Specialist. Product marketing, growth, SEO, paid media, analytics, AI marketing and RevOps." },
+      { title: "Kumar Aayush - Portfolio of a Digital Marketer" },
+      { name: "description", content: "Portfolio of Kumar Aayush - Senior Digital Marketer. Product marketing, growth, SEO, paid media, analytics, AI marketing and RevOps." },
       { name: "author", content: "Kumar Aayush" },
-      { property: "og:title", content: "Kumar Aayush — Digital Marketing Intelligence" },
-      { property: "og:description", content: "An interactive marketing intelligence center — campaigns, dashboards, growth systems and AI workflows by Kumar Aayush." },
+      { property: "og:title", content: "Kumar Aayush - Portfolio of a Digital Marketer" },
+      { property: "og:description", content: "Portfolio of Kumar Aayush - Senior Digital Marketer. Product marketing, growth, SEO, paid media, analytics, AI marketing and RevOps." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Kumar Aayush - Portfolio of a Digital Marketer" },
+      { name: "twitter:description", content: "Portfolio of Kumar Aayush - Senior Digital Marketer. Product marketing, growth, SEO, paid media, analytics, AI marketing and RevOps." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2cc51b62-70d8-424a-9439-4701ce7f4991/id-preview-56060e6c--0cdd3a5c-a0e4-431e-9d9b-2648d8351d21.lovable.app-1783946619259.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2cc51b62-70d8-424a-9439-4701ce7f4991/id-preview-56060e6c--0cdd3a5c-a0e4-431e-9d9b-2648d8351d21.lovable.app-1783946619259.png" },
     ],
     links: [
       {
