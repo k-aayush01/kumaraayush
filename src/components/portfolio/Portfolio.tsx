@@ -1740,13 +1740,6 @@ function Contact() {
                 </GlassCard>
               </a>
             ))}
-            <GlassCard className="p-5">
-              <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Book a call</div>
-              <div className="mt-1 font-medium">30-min strategy session</div>
-              <div className="mt-3 rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground">
-                Calendar integration placeholder — plug in Cal.com / Calendly.
-              </div>
-            </GlassCard>
           </div>
 
           <GlassCard className="p-6 md:p-8">
