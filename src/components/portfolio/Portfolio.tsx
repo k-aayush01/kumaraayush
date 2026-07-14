@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import {
   Activity, ArrowRight, ArrowUpRight, Award, BarChart3, Bot, Brain, Briefcase,
   Check, ChevronDown, Command, Cpu, Download, Gauge, Github, Globe2, Layers,
