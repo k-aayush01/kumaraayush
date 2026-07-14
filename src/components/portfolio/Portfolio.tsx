@@ -452,18 +452,14 @@ function TopNav({ onCmd }: { onCmd: () => void }) {
             <span className="grid h-8 w-8 place-items-center rounded-lg gradient-bg text-primary-foreground shadow-md">KA</span>
             <span className="hidden sm:inline">Kumar Aayush</span>
           </a>
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden xl:flex items-center gap-0.5 whitespace-nowrap">
             {NAV.slice(1).map((n) => (
-              <a key={n.id} href={`#${n.id}`} className="rounded-full px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+              className="rounded-full px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap"
                 {n.label}
               </a>
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <button onClick={onCmd} className="hidden md:flex items-center gap-2 rounded-full border border-border/80 bg-background/70 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors">
-              <Command className="h-3.5 w-3.5" /> <span>Search</span>
-              <kbd className="ml-1 rounded bg-muted px-1.5 py-0.5 font-mono text-[10px]">⌘K</kbd>
-            </button>
             <a href="#contact">
               <Button className="gradient-bg text-primary-foreground shadow-md">Let's Talk <ArrowRight className="ml-1 h-4 w-4" /></Button>
             </a>
@@ -677,7 +673,7 @@ function FloatingWidgets({ mouse }: { mouse: { x: number; y: number } }) {
 
       {/* Globe */}
       <div className="absolute inset-0 grid place-items-center pointer-events-none">
-        <div className="relative h-56 w-56 rounded-full border border-border/60 bg-gradient-to-br from-cyan-accent/10 to-royal-purple/10 backdrop-blur">
+        <div className="relative h-56 w-56 rounded-full border border-border/40 bg-gradient-to-br from-cyan-accent/5 to-royal-purple/5 backdrop-blur opacity-60">
           <div className="absolute inset-0 rounded-full border-t border-border/60 rotate-45" />
           <div className="absolute inset-0 rounded-full border-t border-border/60 rotate-90" />
           <div className="absolute inset-0 rounded-full border-t border-border/60 -rotate-45" />
