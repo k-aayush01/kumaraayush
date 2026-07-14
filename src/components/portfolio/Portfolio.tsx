@@ -526,21 +526,24 @@ function Hero() {
               <a href="#projects"><Button size="lg" className="gradient-bg text-primary-foreground shadow-lg hover:shadow-[var(--shadow-glow)] transition-shadow">
                 Explore My Work <ArrowRight className="ml-2 h-4 w-4" />
               </Button></a>
-              <a href="#contact"><Button size="lg" variant="outline" className="border-border/80 backdrop-blur">
-                <Mail className="mr-2 h-4 w-4" /> Get in Touch
-              </Button></a>
-             <a href="/resume.pdf" download>
+          <a
+  href="/resume.pdf"
+  download="Kumar Aayush Resume.pdf"
+>
   <Button
     size="lg"
-    variant="ghost"
-    className="text-muted-foreground hover:text-foreground"
+    variant="outline"
+    className="border-border/80 backdrop-blur"
   >
     <Download className="mr-2 h-4 w-4" />
     Download Resume
   </Button>
 </a>
 
-<a href="/portfolio.pdf" download>
+<a
+  href="/portfolio.pdf"
+  download="Kumar Aayush Portfolio.pdf"
+>
   <Button
     size="lg"
     variant="outline"
