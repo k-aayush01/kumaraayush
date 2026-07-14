@@ -529,11 +529,27 @@ function Hero() {
               <a href="#contact"><Button size="lg" variant="outline" className="border-border/80 backdrop-blur">
                 <Mail className="mr-2 h-4 w-4" /> Get in Touch
               </Button></a>
-              <a href="/resume" onClick={(e) => { e.preventDefault(); triggerConfetti(); toast.success("Resume ready to download", { description: "Ping me at k-aayush@outlook.com for the latest PDF." }); }}>
-                <Button size="lg" variant="ghost" className="text-muted-foreground hover:text-foreground">
-                  <Download className="mr-2 h-4 w-4" /> Resume
-                </Button>
-              </a>
+             <a href="/resume.pdf" download>
+  <Button
+    size="lg"
+    variant="ghost"
+    className="text-muted-foreground hover:text-foreground"
+  >
+    <Download className="mr-2 h-4 w-4" />
+    Download Resume
+  </Button>
+</a>
+
+<a href="/portfolio.pdf" download>
+  <Button
+    size="lg"
+    variant="outline"
+    className="border-border/80 backdrop-blur"
+  >
+    <Download className="mr-2 h-4 w-4" />
+    Download Portfolio
+  </Button>
+</a>
             </motion.div>
 
             {/* stats */}
