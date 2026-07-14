@@ -445,9 +445,19 @@ function TopNav({ onCmd }: { onCmd: () => void }) {
     return () => window.removeEventListener("scroll", on);
   }, []);
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? "py-2" : "py-4"}`}>
-      <div className="mx-auto max-w-7xl px-4">
-        <div className={`flex items-center justify-between rounded-2xl px-4 py-2.5 transition-all ${scrolled ? "glass-card" : ""}`}>
+    <header
+  className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+    scrolled ? "py-2" : "py-4"
+  }`}
+>
+  <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/60 via-white/20 to-transparent dark:from-background/60 dark:via-background/20" />
+
+  <div className="mx-auto max-w-[1400px] px-5">
+        <div
+  className={`flex items-center justify-between rounded-2xl border border-white/40 bg-white/75 px-4 py-2.5 shadow-xl backdrop-blur-xl transition-all dark:border-white/10 dark:bg-background/70 ${
+    scrolled ? "shadow-2xl" : ""
+  }`}
+>
           <a href="#command" className="flex items-center gap-2 font-display font-semibold">
             <span className="grid h-8 w-8 place-items-center rounded-lg gradient-bg text-primary-foreground shadow-md">KA</span>
             <span className="hidden sm:inline">Kumar Aayush</span>
