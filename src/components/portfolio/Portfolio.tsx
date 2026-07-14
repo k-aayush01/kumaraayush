@@ -452,14 +452,17 @@ function TopNav({ onCmd }: { onCmd: () => void }) {
             <span className="grid h-8 w-8 place-items-center rounded-lg gradient-bg text-primary-foreground shadow-md">KA</span>
             <span className="hidden sm:inline">Kumar Aayush</span>
           </a>
-          <nav className="hidden xl:flex items-center gap-0.5 whitespace-nowrap">
-            {NAV.slice(1).map((n) => (
-              className="rounded-full px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap"
-                {n.label}
-              </a>
-            ))}
-          </nav>
-          <div className="flex items-center gap-2">
+         <nav className="hidden xl:flex items-center gap-0.5 whitespace-nowrap">
+  {NAV.slice(1).map((n) => (
+    <a
+      key={n.id}
+      href={`#${n.id}`}
+      className="rounded-full px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors whitespace-nowrap"
+    >
+      {n.label}
+    </a>
+  ))}
+</nav>
             <a href="#contact">
               <Button className="gradient-bg text-primary-foreground shadow-md">Let's Talk <ArrowRight className="ml-1 h-4 w-4" /></Button>
             </a>
