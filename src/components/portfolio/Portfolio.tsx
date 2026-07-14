@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion, useInView, useScroll, useSpring, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Activity, ArrowRight, ArrowUpRight, Award, BarChart3, Bot, Brain, Briefcase,
   Check, ChevronDown, Command, Cpu, Download, Gauge, Github, Globe2, Layers,
@@ -480,11 +480,30 @@ function TopNav({ onCmd }: { onCmd: () => void }) {
 
 function Hero() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+const roles = [
+  "Senior Digital Marketing Specialist",
+  "Growth Strategist",
+  "SEO Specialist",
+  "AI Marketing Specialist",
+  "Performance Marketer",
+  "GTM Strategist",
+];
+
+const [roleIndex, setRoleIndex] = useState(0);
   useEffect(() => {
     const on = (e: MouseEvent) => setMouse({ x: (e.clientX / window.innerWidth - 0.5) * 30, y: (e.clientY / window.innerHeight - 0.5) * 30 });
     window.addEventListener("mousemove", on);
     return () => window.removeEventListener("mousemove", on);
   }, []);
+
+useEffect(() => {
+  const timer = setInterval(() => {
+    setRoleIndex((prev) => (prev + 1) % roles.length);
+  }, 2200);
+
+  return () => clearInterval(timer);
+}, []);
   return (
     <Section id="command" className="pt-40 md:pt-48 pb-20 md:pb-32 overflow-hidden">
       <div className="absolute inset-0 hero-bg" />
@@ -511,12 +530,31 @@ function Hero() {
               Marketing Intelligence Center · Live
             </motion.div>
 
-            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}
-              className="mt-6 text-5xl md:text-7xl xl:text-8xl font-semibold leading-[0.95]">
-              I build{" "}
-              <span className="gradient-text">growth engines</span>{" "}
-              that compound.
-            </motion.h1>
+            <motion.h1
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.1 }}
+  className="mt-6 text-5xl md:text-7xl xl:text-8xl font-semibold leading-[0.95]"
+>
+  I build{" "}
+  <span className="gradient-text">growth engines</span>{" "}
+  that compound.
+</motion.h1>
+
+<div className="mt-5 h-12 md:h-16 overflow-hidden">
+  <AnimatePresence mode="wait">
+    <motion.span
+      key={roles[roleIndex]}
+      initial={{ y: 60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -60, opacity: 0 }}
+      transition={{ duration: 0.45 }}
+      className="block text-2xl md:text-4xl lg:text-5xl font-bold gradient-text"
+    >
+      {roles[roleIndex]}
+    </motion.span>
+  </AnimatePresence>
+</div>
 
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.25 }}
               className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl">
