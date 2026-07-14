@@ -463,10 +463,15 @@ function TopNav({ onCmd }: { onCmd: () => void }) {
     </a>
   ))}
 </nav>
-            <a href="#contact">
-              <Button className="gradient-bg text-primary-foreground shadow-md">Let's Talk <ArrowRight className="ml-1 h-4 w-4" /></Button>
-            </a>
-          </div>
+
+<div className="flex items-center gap-2">
+  <a href="#contact">
+    <Button className="gradient-bg text-primary-foreground shadow-md">
+      Let's Talk
+      <ArrowRight className="ml-1 h-4 w-4" />
+    </Button>
+  </a>
+         </div>
         </div>
       </div>
     </header>
